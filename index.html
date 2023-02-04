@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1
+
+        const userNames = ["Петрик Ольга Іванівна", "Гнатюк Петро Антонович", "Рудко Андрій Опанасович"];
+        let initials;
+
+        let userNames2 = userNames.sort().map(function(user) {
+            return user.split(" ");
+        });
+
+        initials = userNames2.map(function(user) {
+            return user.map(function(init) {
+                return init[0] + '.';
+            }).join().replaceAll(',', '');
+        });
+        console.log(initials);
+
+        // 2
+
+        const currentMaxValue = 4589;
+        let reverseMaxValue;
+        
+        reverseMaxValue = currentMaxValue.toString().split('').reverse().join('');
+        reverseMaxValue = parseInt(reverseMaxValue , 10);
+        
+        console.log(reverseMaxValue);
+        console.log(typeof reverseMaxValue);
+
+        // 3
+
+        const resultsArray = [1, 2, [3, [4]]];
+        let productOfArray;
+
+        resultArrays2 = resultsArray.flat(Infinity);
+
+        productOfArray = resultArrays2.reduce((acc, curr) => {
+            return acc * curr;
+        })
+        console.log(productOfArray); 
+
+    </script>
+</body>
+</html>
