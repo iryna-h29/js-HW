@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework tasks(Object)</title>
+</head>
+<body>
+    <script>
+        // 1
+        
+        function durationBetweenDates(start, end, unit) {
+            start = new Date(start);
+            end = new Date(end);
+            let duration = Date.parse(start) - Date.parse(end);
+            if (unit === 'days') {
+                let diff = duration / (1000 * 60 * 60 * 24);
+                return `${Math.abs(diff)} days`;
+            }
+            if (unit === 'hours') {
+                let diff = duration / (1000 * 60 * 60);
+                return `${Math.abs(diff)} hours`;
+            }
+            if (unit === 'minutes') {
+                let diff = duration / (1000 * 60);
+                return `${Math.abs(diff)} minutes`;
+            }
+            if (unit === 'seconds') {
+                let diff = duration / 1000;
+                return `${Math.abs(diff)} seconds`;
+            }
+        }
+        console.log(durationBetweenDates('02 Aug 1985', '03 Aug 1985', 'seconds'));
+        console.log(durationBetweenDates('31 Jan 2022', '03 Feb 2021', 'days'));
+        
+        //2
+        
+        const priceData = {
+        Apples: '23.4',
+        BANANAS: '48',
+        oRAnGEs: '48.7584',
+        };
+
+        function optimizer(data) {
+            let formattedObj = Object.entries(data);
+            formattedObj = formattedObj.map((fruits) => {
+                return fruits.map((fruit, index, array) => {
+                    fruit = fruit.toLowerCase();
+                    array[1] = Number(array[1]).toFixed(2);
+                    return fruit;
+                }, this);
+                // return fruits.map((fruit) => {
+                //     return fruit = fruit.toLowerCase();
+                // }).map((fruit, index, array) => {
+                //     array[1] = Number(array[1]).toFixed(2);
+                //     return fruit;
+                // }, this);
+            });
+            return Object.fromEntries(formattedObj);
+        };
+    
+        let updatedPriceData = optimizer(priceData);
+        console.log(updatedPriceData);
+
+
+        // 3
+
+        // Рекурсивно:
+
+        function recursiveOddSumTo(number) {
+            if (number <= 1) {
+                return number;
+            } else if (number % 2 === 0) {
+                return recursiveOddSumTo(number - 1);
+            } else {
+                return number + recursiveOddSumTo(number - 1);
+            }
+        };
+
+        console.log(recursiveOddSumTo(1)); // 1
+        console.log(recursiveOddSumTo(10)); // 25
+
+        // Ітеративно: 
+
+        function iterativeOddSumTo(number) {
+            let sum = 0;
+            for(i = 1; i <= number; i+=2) {
+                sum += i;
+            }
+            return sum;
+        }
+
+        console.log(iterativeOddSumTo(1)); // 1
+        console.log(iterativeOddSumTo(10)); // 25
+    </script>
+</body>
+</html>
