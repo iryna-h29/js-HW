@@ -10,7 +10,7 @@
     <script>
         // 1
         
-        function durationBetweenDates(start, end, unit) {
+        function durationBetweenDates(start='29 Feb 2000', end='29 Feb 2024', unit='days') {
             start = new Date(start);
             end = new Date(end);
             let duration = Date.parse(start) - Date.parse(end);
@@ -31,8 +31,9 @@
                 return `${Math.abs(diff)} seconds`;
             }
         }
-        console.log(durationBetweenDates('02 Aug 1985', '03 Aug 1985', 'seconds'));
-        console.log(durationBetweenDates('31 Jan 2022', '03 Feb 2021', 'days'));
+        // console.log(durationBetweenDates('02 Aug 1985', '03 Aug 1985', 'seconds'));
+        // console.log(durationBetweenDates('31 Jan 2022', '03 Feb 2021', 'days'));
+        console.log(durationBetweenDates());
         
         //2
         
