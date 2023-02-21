@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework (Function)</title>
+</head>
+<body>
+    <script>
+        // 1 
+
+        function addThemAll(...args) {
+            let sum = 0;
+            for (let arg of args) {
+                sum += arg;
+            }
+            return sum;
+        }
+
+        // console.log(addThemAll(2,4)); 
+        // console.log(addThemAll(1,2,3,4)); 
+        // console.log(addThemAll(5,5,10)); 
+
+        // 2
+
+        function multiply (a) {
+            return function (b) {
+                return a * b;
+            };
+        };
+
+        // console.log(multiply(5)(5)); 
+        // console.log(multiply(2)(-2));	       
+        // console.log(multiply(4)(3));
+        
+        // 3
+
+        const movies = [
+            {
+                movieName: 'The Thing',
+                releaseYear: 1982,
+                directedBy: 'Carpenter',
+                runningTimeInMinutes: 109,
+            },
+            {
+                movieName: 'Aliens',
+                releaseYear: 1986,
+                directedBy: 'Cameron',
+                runningTimeInMinutes: 137,
+            },
+            {
+                movieName: 'Men in Black',
+                releaseYear: 1997,
+                directedBy: 'Sonnenfeld',
+                runningTimeInMinutes: 98,
+            },
+            {
+                movieName: 'Predator',
+                releaseYear: 1987,
+                directedBy: 'McTiernan',
+                runningTimeInMinutes: 107,
+            },
+        ];
+
+        function byProperty(property, direction) {
+            return function(a, b) {
+                if (direction === '>' && typeof a[property] === 'number') {
+                    return a[property] - b[property];
+                }
+                if (direction === '<' && typeof a[property] === 'number') {
+                    return b[property] - a[property];
+                }
+                if (direction === '>') {
+                    if(a[property] < b[property]) { return -1; }
+                    if(a[property] > b[property]) { return 1; }
+                    return 0;
+                } 
+                if (direction === '<') {
+                    if(a[property] < b[property]) { return 1; }
+                    if(a[property] > b[property]) { return -1; }
+                    return 0;
+                }
+            }
+        };
+
+        // console.log([...movies].sort(byProperty('releaseYear', '>'))); // виведе масив фільмів посортованих по року випуску, від старішого до новішого*
+        // console.log([...movies].sort(byProperty('runningTimeInMinutes', '<'))); // виведе масив фільмів посортованих по їх тривалості, від найдовшого до найкоротшого*
+        // console.log([...movies].sort(byProperty('movieName', '>'))); // виведе масив фільмів посортованих по назві, в алфавітному порядку*
+        // console.log([...movies].sort(byProperty('movieName', '<'))); 
+
+        // 4 
+
+        let timerId;
+
+        // 1 варіант з setInterval:
+
+        function detonatorTimer(delay) {
+            if (delay > 0) {
+                timerId = setInterval(function() {
+                    console.log(`${delay}`);
+                    delay = delay - 1;
+                    clearInterval(timerId);
+                    detonatorTimer(delay);
+                }, 1000);
+            }
+            if (delay === 0) {
+                console.log('BOOM!');
+                clearInterval(timerId);
+            }
+        };
+
+        // 2 варіант з setTimeout:
+
+        // function detonatorTimer(delay) {
+        //     if (delay > 0) {
+        //         timerId = setTimeout(function() {
+        //             console.log(`${delay}`);
+        //             delay = delay - 1;
+        //             detonatorTimer(delay);
+        //         }, 1000);
+        //     }
+        //     if (delay === 0) {
+        //         console.log('BOOM!');
+        //         clearTimeout(timerId);
+        //     }
+        // };
+
+        detonatorTimer(3);
+
+        // 5
+
+        let me = {
+            name: 'Iryna',
+            surname: 'Havrylenko',
+            country: 'Ukraine',
+            hometown: 'Dnipro',
+            gender: 'female',
+            age: 22,
+            hobbies: ['history', 'singing'],
+            dateOfBirth: {
+                day: 29,
+                month: 'february',
+                year: 2000
+            },
+            introduce() {
+            console.log(`My name is ${this.name} ${this.surname} and I am from ${this.country}, ${this.hometown}`);
+            },
+            isMyBdayThisYear() {
+                console.log((this.dateOfBirth.year + this.age + 1) % 4 === 0);
+            },
+            myHobbies() {
+                console.log(`My hobbies are ${this.hobbies[0]} and ${this.hobbies[1]}`);
+            }
+        }
+        // me.introduce();
+        // me.isMyBdayThisYear();
+        // me.myHobbies();
+
+        // 6 
+
+        let securedMeObj = Object.assign({}, me);
+        Object.freeze(securedMeObj);
+
+
+        let securedSelfIntroduce = securedMeObj.introduce.bind(me); 
+        let securedTestingBday = securedMeObj.isMyBdayThisYear.bind(me);
+        let securedMyHobbies = securedMeObj.myHobbies.bind(me);
+
+        // setTimeout(securedSelfIntroduce, 1000); 
+        // setTimeout(securedTestingBday, 2000);
+        // setTimeout(securedMyHobbies, 3000); 
+
+        // 7
+
+        function showResults(percent) {
+            console.log(`Your result is ${percent}%`);
+        } // тут напишіть довільну функцію яка робить якусь роботу зі своїми аргументами та виводить результат в консоль
+
+        function slower(func, seconds) {
+            console.log("Chill out, you will get your result in 5 seconds");
+            setTimeout(showResults, seconds * 1000, 99) // декоратор
+        }
+
+        // let slowedshowResults = slower(showResults, 5); // обгортаєте свою довільну функцію 'someFunction' в декоратор*
+
+        // slowedshowResults(); 
+
+
+        // *// виведе в консоль "Chill out, you will get your result in 5 seconds"
+        // //...через 5 секунд виведе результат роботи 'someFunction*'
+    </script>
+</body>
+</html>
