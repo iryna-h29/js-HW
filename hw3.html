@@ -174,7 +174,7 @@
         function slower(func, seconds) {
             console.log("Chill out, you will get your result in 5 seconds");
             return function timerFunc(percent) {
-                setTimeout(showResults, seconds * 1000, percent); 
+                setTimeout(func, seconds * 1000, percent); 
             }
         }
 
