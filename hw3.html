@@ -91,39 +91,33 @@
 
         // 4 
 
-        let timerId;
 
         // 1 варіант з setInterval:
 
         function detonatorTimer(delay) {
-            if (delay > 0) {
-                timerId = setInterval(function() {
+            timerId = setInterval(function() {
+                if (delay === 0) {
+                    console.log('BOOM!');
+                    clearInterval(timerId);
+                }
+                if (delay > 0) {
                     console.log(`${delay}`);
                     delay = delay - 1;
-                    clearInterval(timerId);
-                    detonatorTimer(delay);
-                }, 1000);
-            }
-            if (delay === 0) {
-                console.log('BOOM!');
-                clearInterval(timerId);
-            }
+                }
+            }, 1000);
         };
 
         // 2 варіант з setTimeout:
 
         // function detonatorTimer(delay) {
-        //     if (delay > 0) {
-        //         timerId = setTimeout(function() {
-        //             console.log(`${delay}`);
-        //             delay = delay - 1;
-        //             detonatorTimer(delay);
-        //         }, 1000);
-        //     }
-        //     if (delay === 0) {
-        //         console.log('BOOM!');
-        //         clearTimeout(timerId);
-        //     }
+        //     let timerId = setTimeout(function int() {
+        //         if (delay === 0) {
+        //             console.log('BOOM!');
+        //         } else {
+        //             console.log(delay--);
+        //             setTimeout(int, 1000);
+        //         }
+        //     }, 1000);
         // };
 
         detonatorTimer(3);
@@ -175,16 +169,18 @@
 
         function showResults(percent) {
             console.log(`Your result is ${percent}%`);
-        } // тут напишіть довільну функцію яка робить якусь роботу зі своїми аргументами та виводить результат в консоль
+        } 
 
         function slower(func, seconds) {
             console.log("Chill out, you will get your result in 5 seconds");
-            setTimeout(showResults, seconds * 1000, 99) // декоратор
+            return function timerFunc(percent) {
+                setTimeout(showResults, seconds * 1000, percent); 
+            }
         }
 
-        // let slowedshowResults = slower(showResults, 5); // обгортаєте свою довільну функцію 'someFunction' в декоратор*
+        // let slowedshowResults = slower(showResults, 5); 
 
-        // slowedshowResults(); 
+        // slowedshowResults(99);
 
 
         // *// виведе в консоль "Chill out, you will get your result in 5 seconds"
