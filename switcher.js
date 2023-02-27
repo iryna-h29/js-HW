@@ -57,7 +57,6 @@ function switchTheme() {
 };
 
 
-
 let switcherSpanBtn = document.querySelector('#switcher-btn-span');
 let switcherSpanLabel = document.querySelector('#switcher__label');
 let sectionSwitcher = document.querySelector('.switcher');
