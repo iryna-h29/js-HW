@@ -32,7 +32,7 @@ function getCurrentDate() {
         year : date.getFullYear(),
         hour : date.getHours(),
         minutes : date.getMinutes(),
-        seconds : date.getSeconds()
+        seconds : date.getSeconds(),
     };
     for (let item in dateObj) {
         if (String(dateObj[item]).length === 1) {
