@@ -71,8 +71,8 @@
             // для елементу списку з текстом 'Пункт 5'
 
             let listArr = Array.from(document.querySelector('ul').children);
-            let element5 = listArr.find(el => {
-                return el.innerText = 'Пункт 5';
+            let element5 = listArr.find(li => {
+                return li.innerText.includes('Пункт 5');
             });
             console.log(element5);
 

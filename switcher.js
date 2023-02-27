@@ -25,6 +25,15 @@ function changeTextContent() {
     localStorage.setItem('SetCondition', switcherSpanBtn.textContent);
 }
 function getCurrentDate() {
+    const date = new Date();
+    const dateObj = {
+        day : date.getDate(),
+        month : date.getMonth() + 1,
+        year : date.getFullYear(),
+        hour : date.getHours(),
+        minutes : date.getMinutes(),
+        seconds : date.getSeconds()
+    };
     for (let item in dateObj) {
         if (String(dateObj[item]).length === 1) {
             dateObj[item] = "0" + dateObj[item];
@@ -47,16 +56,7 @@ function switchTheme() {
     setDate();
 };
 
-const date = new Date();
 
-const dateObj = {
-    day : date.getDate(),
-    month : date.getMonth() + 1,
-    year : date.getFullYear(),
-    hour : date.getHours(),
-    minutes : date.getMinutes(),
-    seconds : date.getSeconds()
-};
 
 let switcherSpanBtn = document.querySelector('#switcher-btn-span');
 let switcherSpanLabel = document.querySelector('#switcher__label');
