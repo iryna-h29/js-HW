@@ -138,7 +138,7 @@ let Phil = new Marmot("Phil", "North America", true);
 // Phil.doSpeciesOfAnimalLiveInUkraine();
 // console.log(Phil.superpower);
 // Phil.predictTheWeather();
-// Phil.screamLikeMan();
+// Phil.findFood();
 
 let Sonya = new Chinchilla('Sonya', "South America", false);
 
