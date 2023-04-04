@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async</title>
+</head>
+<body>
+    <script>
+        // 1
+    // результат в консолі: 
+
+    // start
+    // 1
+    // end
+    // 2 
+
+    console.log('start'); // в консолі 'start', код поки синхронний
+
+    const promise1 = new Promise((resolve, reject) => { // в об'єкт проміс ми передаємо асинхронні функції resolve i reject, які поки не викликаються і виконаються в залежності від результату функції нижче, яка викликається одразу
+        console.log(1) // в консолі "1"
+        resolve(2) // в резолв ми передаємо "2", викликається у разі успішного виконання функції через метод then
+    })
+
+    promise1.then(res => { // асинхронний код, виконання проміс успішне, тому функція res викликається в методі then
+        console.log(res) // в консолі "2" - це те, що ми передали в resolve
+    })
+
+    console.log('end'); // в консолі "end" (синхронний код) з'являється після відпрацювання функції всередині проміс, 
+    // результат в консолі з'являється перед then, тому що функції передані в об'єкті проміс асинхронні
+
+    // 2 
+
+    //  в консолі:  2
+
+    Promise.resolve(1)
+        .then((x) => x + 1) // ми перезаписуємо x = 2 та передаємо його далі в наступний метод then
+        .then((x) => { throw new Error('My Error') })  // передаємо далі reject, який передається далі в catch, тому помилку в консолі не видає
+        .catch(() => 1) // catch приймає reject та передає далі в then "1"
+        .then((x) => x + 1) //  додає до x одиницю і передає далі "2"
+        .then((x) => console.log(x)) // отримує x та виводить його в консолі
+        .catch(console.error) // catch не спрацьовує, бо йому не було передано reject
+
+
+    // 3
+
+    // результат виконання: 
+    // 2
+    // 4
+    // underfined
+    // 8
+
+    const promise = new Promise(res => res(2));
+        promise.then(v => {
+                console.log(v);
+                return v * 2;
+            })
+            .then(v => {
+                console.log(v);
+                return v * 2;
+            })
+            .finally(v => {
+                console.log(v);
+                return v * 2; // finally не може передавати далі значення та не використовується для виведення результату чи маніпуляції з ним
+                // натомість ми можемо використовувати його для припинення loading
+            })
+            .then(v => {
+                console.log(v);
+            });
+            
+    </script>
+</body>
+</html>
